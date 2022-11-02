@@ -12,10 +12,10 @@ from controladores.ControladorResultado import ControladorResultado
 
 app = Flask(__name__)
 cors = CORS(app)
-controladorMesa: ControladorMesa()
-controladorCandidato: ControladorCandidato()
-controladorPartido: ControladorPartido()
-controladorResultado: ControladorResultado()
+controladorMesa= ControladorMesa()
+controlCandi= ControladorCandidato()
+controladorPartido= ControladorPartido()
+controladorResultado= ControladorResultado()
 
 
 @app.route("/mesa", methods=['POST'])
@@ -24,11 +24,11 @@ def crearMesa():
     return {"resultado": "Crea mesa"}
 
 
-@app.route("/mesa", methods=['COPY'])
-def CopyMesa():
+@app.route("/mesa", methods=['GET'])
+def GETMesa():
     controladorMesa.buscarMesa()
     variableRespuesta = {
-        "respuesta": "copy realizada"
+        "respuesta": "GET realizada"
     }
     return variableRespuesta
 
@@ -53,22 +53,26 @@ def DeleteMesa():
 
 @app.route("/candidato", methods=['POST'])
 def crearCandidato():
-    controladorCandidato.crearCandidato()
-    return {"resultado": "Crea Candidato"}
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlCandi.crearCandidato(requestBody)
+    if result:
+        return {"resultado": "Candidato Creado!"}
+    else:
+        return {"resultado": "Error al crear el Candidato!"}
 
 
-@app.route("/candidato", methods=['COPY'])
-def CopyCandidato():
-    controladorCandidato.buscarCandidato()
-    variableRespuesta = {
-        "respuesta": "copy realizada"
-    }
-    return variableRespuesta
-
+@app.route("/candidato", methods=['GET'])
+def GETCandidato():
+    result = ControladorCandidato.buscarTodosLosCandidatos()
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
 
 @app.route("/candidato", methods=['PUT'])
 def PutCandidato():
-    controladorCandidato.actualizarCandidato()
+    ControladorCandidato.actualizarCandidato()
     variableRespuesta = {
         "respuesta": "PUT realizado"
     }
@@ -77,7 +81,7 @@ def PutCandidato():
 
 @app.route("/candidato", methods=['DELETE'])
 def DeleteCandidato():
-    controladorCandidato.eliminarCandidato()
+    ControladorCandidato.eliminarCandidato()
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
@@ -90,11 +94,11 @@ def crearPartido():
     return {"resultado": "Crea Partido"}
 
 
-@app.route("/partido", methods=['COPY'])
-def CopyPartido():
+@app.route("/partido", methods=['GET'])
+def GETPartido():
     controladorPartido.buscarPartido()
     variableRespuesta = {
-        "respuesta": "copy realizada"
+        "respuesta": "GET realizada"
     }
     return variableRespuesta
 
@@ -123,11 +127,11 @@ def crearResultado():
     return {"resultado": "Crea Resultado"}
 
 
-@app.route("/resultado", methods=['COPY'])
-def CopyResultado():
+@app.route("/resultado", methods=['GET'])
+def GETResultado():
     controladorResultado.buscarResultado()
     variableRespuesta = {
-        "respuesta": "copy realizada"
+        "respuesta": "GET realizada"
     }
     return variableRespuesta
 
