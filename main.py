@@ -178,9 +178,9 @@ def PutPartido():
     print("Request body: ", requestBody)
     result = controlPartido.actualizarPartido(requestBody)
     if result:
-        return {"resultado": "Candidato actualizado"}
+        return {"resultado": "Paritod actualizado"}
     else:
-        return {"resultado": "Error al actualizar el Candidato"}
+        return {"resultado": "Error al actualizar el Partido"}
 #--------------------------------------------------------------------------------------------------------------
 #metodo borrar
 #--------------------------------------------------------------------------------------------------------------
@@ -191,35 +191,63 @@ def DeletePartido(idObject):
         "respuesta": "DELETE realizado"
     }
     return variableRespuesta
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#metodos de Resultado
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#creacion de Resultado
+#--------------------------------------------------------------------------------------------------------------
 
 
 @app.route("/resultado", methods=['POST'])
 def crearResultado():
-    controlResultado.crearResultado()
-    return {"resultado": "Crea Resultado"}
-
-
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlResultado.crearResultado(requestBody)
+    if result:
+        return {"resultado": "Resultado Creado!"}
+    else:
+        return {"resultado": "Error al crear el Resultado!"}
+#--------------------------------------------------------------------------------------------------------------
+#Obtencion de datos
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/resultado", methods=['GET'])
 def GETResultado():
-    controlResultado.buscarResultado()
-    variableRespuesta = {
-        "respuesta": "GET realizada"
-    }
-    return variableRespuesta
-
-
+    result = controlResultado.buscarTodosResultado()
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+@app.route("/partido/<string:idObject>", methods=['GET'])
+def GETPartidos(idObject):
+    result = controlResultado.buscarResultado(idObject)
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+#metodo de actualizacion
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/resultado", methods=['PUT'])
 def PutResultado():
-    controlResultado.actualizarResultado()
-    variableRespuesta = {
-        "respuesta": "PUT realizado"
-    }
-    return variableRespuesta
-
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlResultado.actualizarResultado(requestBody)
+    if result:
+        return {"resultado": "Resultado actualizado"}
+    else:
+        return {"resultado": "Error al actualizar el Resultado"}
+#--------------------------------------------------------------------------------------------------------------
+#metodo borrar
+#--------------------------------------------------------------------------------------------------------------
 
 @app.route("/resultado", methods=['DELETE'])
-def DeleteResultado():
-    controlResultado.eliminarResultado()
+def DeleteResultado(idObject):
+    controlResultado.eliminarResultado(idObject)
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
