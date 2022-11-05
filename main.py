@@ -12,21 +12,26 @@ from controladores.ControladorResultado import ControladorResultado
 
 app = Flask(__name__)
 cors = CORS(app)
-controladorMesa= ControladorMesa()
+controlMesa= ControladorMesa()
 controlCandi= ControladorCandidato()
-controladorPartido= ControladorPartido()
-controladorResultado= ControladorResultado()
+controlPartido= ControladorPartido()
+controlResultado= ControladorResultado()
 
 
 @app.route("/mesa", methods=['POST'])
 def crearMesa():
-    controladorMesa.crearMesa()
-    return {"resultado": "Crea mesa"}
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlMesa.crearMesa(requestBody)
+    if result:
+        return {"resultado": "Mesa Creado!"}
+    else:
+        return {"resultado": "Error al crear la Mesa!"}
 
 
 @app.route("/mesa", methods=['GET'])
 def GETMesa():
-    controladorMesa.buscarMesa()
+    controlMesa.buscarMesa()
     variableRespuesta = {
         "respuesta": "GET realizada"
     }
@@ -35,7 +40,7 @@ def GETMesa():
 
 @app.route("/mesa", methods=['PUT'])
 def PutMesa():
-    controladorMesa.actualizarMesa()
+    controlMesa.actualizarMesa()
     variableRespuesta = {
         "respuesta": "PUT realizado"
     }
@@ -44,7 +49,7 @@ def PutMesa():
 
 @app.route("/mesa", methods=['DELETE'])
 def DeleteMesa():
-    controladorMesa.eliminarMesa()
+    controlMesa.eliminarMesa()
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
@@ -98,13 +103,13 @@ def DeleteCandidato(idObject):
 
 @app.route("/partido", methods=['POST'])
 def crearPartido():
-    controladorPartido.crearPartido()
+    controlPartido.crearPartido()
     return {"resultado": "Crea Partido"}
 
 
 @app.route("/partido", methods=['GET'])
 def GETPartido():
-    controladorPartido.buscarPartido()
+    controlPartido.buscarPartido()
     variableRespuesta = {
         "respuesta": "GET realizada"
     }
@@ -113,7 +118,7 @@ def GETPartido():
 
 @app.route("/partido", methods=['PUT'])
 def PutPartido():
-    controladorPartido.actualizarPartido()
+    controlPartido.actualizarPartido()
     variableRespuesta = {
         "respuesta": "PUT realizado"
     }
@@ -122,7 +127,7 @@ def PutPartido():
 
 @app.route("/partido", methods=['DELETE'])
 def DeletePartido():
-    controladorPartido.eliminarPartido()
+    controlPartido.eliminarPartido()
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
@@ -131,13 +136,13 @@ def DeletePartido():
 
 @app.route("/resultado", methods=['POST'])
 def crearResultado():
-    controladorResultado.crearResultado()
+    controlResultado.crearResultado()
     return {"resultado": "Crea Resultado"}
 
 
 @app.route("/resultado", methods=['GET'])
 def GETResultado():
-    controladorResultado.buscarResultado()
+    controlResultado.buscarResultado()
     variableRespuesta = {
         "respuesta": "GET realizada"
     }
@@ -146,7 +151,7 @@ def GETResultado():
 
 @app.route("/resultado", methods=['PUT'])
 def PutResultado():
-    controladorResultado.actualizarResultado()
+    controlResultado.actualizarResultado()
     variableRespuesta = {
         "respuesta": "PUT realizado"
     }
@@ -155,7 +160,7 @@ def PutResultado():
 
 @app.route("/resultado", methods=['DELETE'])
 def DeleteResultado():
-    controladorResultado.eliminarResultado()
+    controlResultado.eliminarResultado()
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }

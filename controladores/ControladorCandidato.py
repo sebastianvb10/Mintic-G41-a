@@ -1,7 +1,6 @@
-
-
 from modelos.Candidato import Candidato
 from Repositorios.RepositorioCandidato import RepositorioCandidato
+
 
 class ControladorCandidato():
 
@@ -31,6 +30,7 @@ class ControladorCandidato():
         candiActual.nombre = candi["nombre"]
         candiActual.apellido = candi["apellido"]
         candiActual.cedula = candi["cedula"]
+        candiActual.numero_resolucion = candi["numero_resolucion"]
         self.repositorioCandidato.save(candiActual)
         return True
 
