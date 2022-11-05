@@ -12,12 +12,19 @@ from controladores.ControladorResultado import ControladorResultado
 
 app = Flask(__name__)
 cors = CORS(app)
+#creacion de constructores
 controlMesa= ControladorMesa()
 controlCandi= ControladorCandidato()
 controlPartido= ControladorPartido()
 controlResultado= ControladorResultado()
 
+#--------------------------------------------------------------------------------------------------------------
+#metodos de Mesa
+#--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+#creacion de mesa
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/mesa", methods=['POST'])
 def crearMesa():
     requestBody = request.get_json()
@@ -27,35 +34,55 @@ def crearMesa():
         return {"resultado": "Mesa Creado!"}
     else:
         return {"resultado": "Error al crear la Mesa!"}
-
-
+#--------------------------------------------------------------------------------------------------------------
+#metodos de obtencion de datos
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/mesa", methods=['GET'])
 def GETMesa():
-    controlMesa.buscarMesa()
-    variableRespuesta = {
-        "respuesta": "GET realizada"
-    }
-    return variableRespuesta
-
-
+    result = controlMesa.buscartodasMesas()
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+@app.route("/mesa/<string:idObject>", methods=['GET'])
+def GETCandidato(idObject):
+    result = controlMesa.buscarMesa(idObject)
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+#metodo de actualizacion
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/mesa", methods=['PUT'])
 def PutMesa():
-    controlMesa.actualizarMesa()
-    variableRespuesta = {
-        "respuesta": "PUT realizado"
-    }
-    return variableRespuesta
-
-
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlMesa.actualizarMesa(requestBody)
+    if result:
+        return {"resultado": "Mesa actualizado"}
+    else:
+        return {"resultado": "Error al actualizar el Mesa"}
+#--------------------------------------------------------------------------------------------------------------
+#metodo borrar
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/mesa", methods=['DELETE'])
-def DeleteMesa():
-    controlMesa.eliminarMesa()
+def DeleteMesa(idObject):
+    controlMesa.eliminarMesa(idObject)
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
     return variableRespuesta
+#--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+#metodos de Candidato
+#--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+#creacion de mesa
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato", methods=['POST'])
 def crearCandidato():
     requestBody = request.get_json()
@@ -65,8 +92,9 @@ def crearCandidato():
         return {"resultado": "Candidato Creado!"}
     else:
         return {"resultado": "Error al crear el Candidato!"}
-
-
+#--------------------------------------------------------------------------------------------------------------
+#metodos de obtencion de datos
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato", methods=['GET'])
 def GETtodosCandidato():
     result = controlCandi.buscarTodosLosCandidatos()
@@ -74,6 +102,7 @@ def GETtodosCandidato():
         return {"resultado": "No se encuentran items en la base de datos!"}
     else:
         return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato/<string:idObject>", methods=['GET'])
 def GETCandidato(idObject):
     result = controlCandi.buscarCandidato(idObject)
@@ -81,6 +110,9 @@ def GETCandidato(idObject):
         return {"resultado": "No se encuentran items en la base de datos!"}
     else:
         return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+#metodo de actualizacion
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato", methods=['PUT'])
 def PutCandidato():
     requestBody = request.get_json()
@@ -90,8 +122,9 @@ def PutCandidato():
         return {"resultado": "Candidato actualizado"}
     else:
         return {"resultado": "Error al actualizar el Candidato"}
-
-
+#--------------------------------------------------------------------------------------------------------------
+#metodo borrar
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato/<string:idObject>", methods=['DELETE'])
 def DeleteCandidato(idObject):
     controlCandi.eliminarCandidato(idObject)
