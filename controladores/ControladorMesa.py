@@ -32,6 +32,6 @@ class ControladorMesa():
         mesaActual = Mesa(self.repositorioMesa.findById(mesarecibida["idObject"]))
         print("Actualizando el Mesa....", mesaActual.__dict__)
         mesaActual.numero = mesarecibida["numero"]
-        mesaActual.cantidad_inscritos = mesarecibida["cantidad_inscritos"]
+        mesaActual.cantidadInscritos = mesarecibida["cantidadInscritos"]
         self.repositorioMesa.save(mesaActual)
         return True

@@ -30,7 +30,7 @@ class ControladorCandidato():
         candiActual.nombre = candi["nombre"]
         candiActual.apellido = candi["apellido"]
         candiActual.cedula = candi["cedula"]
-        candiActual.numero_resolucion = candi["numero_resolucion"]
+        candiActual.numeroResolucion = candi["numeroResolucion"]
         self.repositorioCandidato.save(candiActual)
         return True
 
