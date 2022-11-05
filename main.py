@@ -64,7 +64,7 @@ def crearCandidato():
 
 @app.route("/candidato", methods=['GET'])
 def GETCandidato():
-    result = ControladorCandidato.buscarTodosLosCandidatos()
+    result = controlCandi.buscarTodosLosCandidatos()
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
     else:
