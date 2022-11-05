@@ -63,25 +63,33 @@ def crearCandidato():
 
 
 @app.route("/candidato", methods=['GET'])
-def GETCandidato():
+def GETtodosCandidato():
     result = controlCandi.buscarTodosLosCandidatos()
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
     else:
         return jsonify(result)
-
+@app.route("/candidato/<string:idObject>", methods=['GET'])
+def GETCandidato(idObject):
+    result = controlCandi.buscarCandidato(idObject)
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
 @app.route("/candidato", methods=['PUT'])
 def PutCandidato():
-    ControladorCandidato.actualizarCandidato()
-    variableRespuesta = {
-        "respuesta": "PUT realizado"
-    }
-    return variableRespuesta
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlCandi.actualizarCandidato(requestBody)
+    if result:
+        return {"resultado": "Candidato actualizado"}
+    else:
+        return {"resultado": "Error al actualizar el Candidato"}
 
 
-@app.route("/candidato", methods=['DELETE'])
-def DeleteCandidato():
-    ControladorCandidato.eliminarCandidato()
+@app.route("/candidato/<string:idObject>", methods=['DELETE'])
+def DeleteCandidato(idObject):
+    controlCandi.eliminarCandidato(idObject)
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }

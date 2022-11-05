@@ -19,19 +19,19 @@ class ControladorCandidato():
     def buscarCandidato(self, idObject):
         print("Buscando el Candidato....", idObject)
         candidato = Candidato(self.repositorioCandidato.findById(idObject))
-        return Candidato.__dict__
+        return candidato.__dict__
 
     def buscarTodosLosCandidatos(self):
         print("Buscando todos los Candidatos en base de datos....")
         return self.repositorioCandidato.findAll()
 
-    def actualizarCandidato(self, Candidato):
-        CandidatoActual = Candidato(self.repositorioCandidato.findById(Candidato["idObject"]))
-        print("Actualizando el Candidato....", CandidatoActual)
-        CandidatoActual.nombre = Candidato["nombre"]
-        CandidatoActual.apellido = Candidato["apellido"]
-        CandidatoActual.cedula = Candidato["cedula"]
-        self.repositorioCandidato.save(CandidatoActual)
+    def actualizarCandidato(self, candi):
+        candiActual = Candidato(self.repositorioCandidato.findById(candi["idObject"]))
+        print("Actualizando el Candidato....", candiActual.__dict__)
+        candiActual.nombre = candi["nombre"]
+        candiActual.apellido = candi["apellido"]
+        candiActual.cedula = candi["cedula"]
+        self.repositorioCandidato.save(candiActual)
         return True
 
     def eliminarCandidato(self, idObject):
