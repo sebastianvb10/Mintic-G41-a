@@ -26,9 +26,9 @@ class ControladorResultado():
     def actualizarResultado(self, result):
         resultActual = Resultado(self.repositorioResultado.findById(result["idObject"]))
         print("Actualizando el Candidato....", resultActual.__dict__)
-        resultActual.nombre = result["nombre"]
-        resultActual.apellido = result["apellido"]
-        resultActual.cedula = result["cedula"]
-        resultActual.numeroResolucion = result["numeroResolucion"]
+        resultActual.id = result["id"]
+        resultActual.numeroMesa = result["numeroMesa"]
+        resultActual.cedulaCandidato = result["cedulaCandidato"]
+        resultActual.numeroVotos = result["numeroVotos"]
         self.repositorioResultado.save(resultActual)
         return True
