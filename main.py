@@ -164,23 +164,29 @@ def GETPartido():
 #--------------------------------------------------------------------------------------------------------------
 @app.route("/partido/<string:idObject>", methods=['GET'])
 def GETPartidos(idObject):
-    result = controlCandi.buscarCandidato(idObject)
+    result = controlPartido.buscarPartido(idObject)
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
     else:
         return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+#metodo de actualizacion
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/partido", methods=['PUT'])
 def PutPartido():
-    controlPartido.actualizarPartido()
-    variableRespuesta = {
-        "respuesta": "PUT realizado"
-    }
-    return variableRespuesta
-
-
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlPartido.actualizarPartido(requestBody)
+    if result:
+        return {"resultado": "Candidato actualizado"}
+    else:
+        return {"resultado": "Error al actualizar el Candidato"}
+#--------------------------------------------------------------------------------------------------------------
+#metodo borrar
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/partido", methods=['DELETE'])
-def DeletePartido():
-    controlPartido.eliminarPartido()
+def DeletePartido(idObject):
+    controlPartido.eliminarPartido(idObject)
     variableRespuesta = {
         "respuesta": "DELETE realizado"
     }
