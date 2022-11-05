@@ -46,7 +46,7 @@ def GETMesa():
         return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
 @app.route("/mesa/<string:idObject>", methods=['GET'])
-def GETCandidato(idObject):
+def GETMesas(idObject):
     result = controlMesa.buscarMesa(idObject)
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
@@ -132,23 +132,43 @@ def DeleteCandidato(idObject):
         "respuesta": "DELETE realizado"
     }
     return variableRespuesta
+#--------------------------------------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------------------------------------
+#metodos de Partido
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#creacion de Partido
+#--------------------------------------------------------------------------------------------------------------
 
 @app.route("/partido", methods=['POST'])
 def crearPartido():
-    controlPartido.crearPartido()
-    return {"resultado": "Crea Partido"}
-
-
+    requestBody = request.get_json()
+    print("Request body: ", requestBody)
+    result = controlPartido.crearPartido(requestBody)
+    if result:
+        return {"resultado": "Partido Creado!"}
+    else:
+        return {"resultado": "Error al crear el Partido!"}
+#--------------------------------------------------------------------------------------------------------------
+#Obtencion de datos
+#--------------------------------------------------------------------------------------------------------------
 @app.route("/partido", methods=['GET'])
 def GETPartido():
-    controlPartido.buscarPartido()
-    variableRespuesta = {
-        "respuesta": "GET realizada"
-    }
-    return variableRespuesta
-
-
+    result = controlPartido.buscartodosPartido()
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
+#--------------------------------------------------------------------------------------------------------------
+@app.route("/partido/<string:idObject>", methods=['GET'])
+def GETPartidos(idObject):
+    result = controlCandi.buscarCandidato(idObject)
+    if not result:
+        return {"resultado": "No se encuentran items en la base de datos!"}
+    else:
+        return jsonify(result)
 @app.route("/partido", methods=['PUT'])
 def PutPartido():
     controlPartido.actualizarPartido()
