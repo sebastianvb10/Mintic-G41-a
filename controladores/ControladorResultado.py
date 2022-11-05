@@ -1,15 +1,34 @@
+from Repositorios.RepositorioResultado import RepositorioResultado
+from modelos.Resultado import Resultado
+
+
 class ControladorResultado():
     def __init__(self):
         print("Entro al constructor de la clase  ControladorResultado")
-    def crearResultado(self):
-        print("Creando Resultado")
+        self.repositorioResultado = RepositorioResultado()
+    def crearResultado(self, bodyR):
+        print("Creando el Resultado....")
+        nuevoResultado = Resultado(bodyR)
+        print("Resultado a crear en base de datos: ", nuevoResultado.__dict__)
+        self.repositorioResultado.save(nuevoResultado)
         return True
-    def buscarResultado(self):
-        print ("Buscando Resultado: ")
+    def buscarResultado(self, idObject):
+        print("Buscando el Resultado....", idObject)
+        resultado = Resultado(self.repositorioResultado.findById(idObject))
+        return resultado.__dict__
+    def buscarTodosResultado(self):
+        print("Buscando todos los Resultados en base de datos....")
+        return self.repositorioResultado.findAll()
+    def eliminarResultado(self, idObject):
+        print("Eliminando el Resultado....", idObject)
+        self.repositorioResultado.delete(idObject)
         return True
-    def eliminarResultado(self):
-        print ("Eliminando Resultado")
-        return True
-    def actualizarResultado(self):
-        print("Actualizando Resultado")
+    def actualizarResultado(self, result):
+        resultActual = Resultado(self.repositorioResultado.findById(result["idObject"]))
+        print("Actualizando el Candidato....", resultActual.__dict__)
+        resultActual.nombre = result["nombre"]
+        resultActual.apellido = result["apellido"]
+        resultActual.cedula = result["cedula"]
+        resultActual.numeroResolucion = result["numeroResolucion"]
+        self.repositorioResultado.save(resultActual)
         return True
