@@ -171,7 +171,7 @@ def GETPartido():
         return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
 @app.route("/partido/<string:idObject>", methods=['GET'])
-def GETPartidos(idObject):
+def GETtodosPartidos(idObject):
     result = controlPartido.buscarPartido(idObject)
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
