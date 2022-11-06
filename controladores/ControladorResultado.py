@@ -1,4 +1,8 @@
+from Repositorios.RepositorioCandidato import RepositorioCandidato
+from Repositorios.RepositorioMesa import RepositorioMesa
 from Repositorios.RepositorioResultado import RepositorioResultado
+from modelos.Candidato import Candidato
+from modelos.Mesa import Mesa
 from modelos.Resultado import Resultado
 
 
@@ -6,9 +10,15 @@ class ControladorResultado():
     def __init__(self):
         print("Entro al constructor de la clase  ControladorResultado")
         self.repositorioResultado = RepositorioResultado()
-    def crearResultado(self, bodyR):
+        self.repositorioCandidato= RepositorioCandidato()
+        self.repositorioMesa=RepositorioMesa()
+    def crearResultado(self, bodyR,idCandidato,idMesa):
         print("Creando el Resultado....")
         nuevoResultado = Resultado(bodyR)
+        candi=Candidato(self.repositorioCandidato.findById(idCandidato))
+        mes=Mesa(self.repositorioMesa.findById(idMesa))
+        nuevoResultado.candidato=candi
+        nuevoResultado.mesa=mes
         print("Resultado a crear en base de datos: ", nuevoResultado.__dict__)
         self.repositorioResultado.save(nuevoResultado)
         return True
