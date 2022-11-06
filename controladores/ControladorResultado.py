@@ -40,5 +40,5 @@ class ControladorResultado():
         resultActual.numeroMesa = result["numeroMesa"]
         resultActual.cedulaCandidato = result["cedulaCandidato"]
         resultActual.numeroVotos = result["numeroVotos"]
-        self.repositorioResultado.save(resultActual)
-        return True
+
+        return self.repositorioResultado.save(resultActual)

@@ -215,10 +215,7 @@ def crearResultado(idCandidato,idMesa):
     requestBody = request.get_json()
     print("Request body: ", requestBody)
     result = controlResultado.crearResultado(requestBody,idCandidato,idMesa)
-    if result:
-        return jsonify(result)
-    else:
-        return {"resultado": "Error al crear el Resultado!"}
+    return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
 #Obtencion de datos
 #--------------------------------------------------------------------------------------------------------------
