@@ -46,3 +46,4 @@ class ControladorCandidato():
         parti=Partido(self.repositorioPartido.findById((idPartido)))
         candi.IdPartido=parti
         self.repositorioCandidato.save(candi)
+        return candi

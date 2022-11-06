@@ -125,9 +125,9 @@ def PutCandidato():
 #--------------------------------------------------------------------------------------------------------------
 #metodo de asignacion partido
 #--------------------------------------------------------------------------------------------------------------
-@app.route("/candidato/<string:idCandidato>/partido/string:idPartido", methods=['PUT'])
+@app.route("/candidato/<string:idCandidato>/partido/<string:idPartido>", methods=['PUT'])
 def AsignarPartidoCandidato(idCandidato,idPartido):
-    result= controlCandi.asignarPartido(idCandidato,idPartido)
+    result = controlCandi.asignarPartido(idCandidato,idPartido)
     return jsonify(result)#convierte a json
 #-------------------------------------------------------------------
 #--------------------------------------------------------------------------------------------------------------
