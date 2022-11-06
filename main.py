@@ -150,13 +150,13 @@ def DeleteCandidato(idObject):
 #creacion de Partido
 #--------------------------------------------------------------------------------------------------------------
 
-@app.route("/partido/candidato/<string:idCandidato>/mea/<string:idMesa>", methods=['POST'])
-def crearPartido(idCandidato,idMesa):
+@app.route("/partido", methods=['POST'])
+def crearPartido():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result = controlPartido.crearPartido(requestBody,idCandidato,idMesa)
+    result = controlPartido.crearPartido(requestBody)
     if result:
-        return jsonify(result)
+        return {"resultado": "Partido Creado!"}
     else:
         return {"resultado": "Error al crear el Partido!"}
 #--------------------------------------------------------------------------------------------------------------
@@ -210,13 +210,13 @@ def DeletePartido(idObject):
 #--------------------------------------------------------------------------------------------------------------
 
 
-@app.route("/resultado", methods=['POST'])
-def crearResultado():
+@app.route("/resultado/candidato/<string:idCandidato>/mesa/<string:idMesa>", methods=['POST'])
+def crearResultado(idCandidato,idMesa):
     requestBody = request.get_json()
     print("Request body: ", requestBody)
-    result = controlResultado.crearResultado(requestBody)
+    result = controlResultado.crearResultado(requestBody,idCandidato,idMesa)
     if result:
-        return {"resultado": "Resultado Creado!"}
+        return jsonify(result)
     else:
         return {"resultado": "Error al crear el Resultado!"}
 #--------------------------------------------------------------------------------------------------------------
