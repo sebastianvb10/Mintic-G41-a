@@ -123,6 +123,14 @@ def PutCandidato():
     else:
         return {"resultado": "Error al actualizar el Candidato"}
 #--------------------------------------------------------------------------------------------------------------
+#metodo de asignacion partido
+#--------------------------------------------------------------------------------------------------------------
+@app.route("/candidato/<string:idCandidato>/partido/string:idPartido", methods=['PUT'])
+def AsignarPartidoCandidato(idCandidato,idPartido):
+    result= controlCandi.asignarPartido(idCandidato,idPartido)
+    return jsonify(result)#convierte a json
+#-------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
 #metodo borrar
 #--------------------------------------------------------------------------------------------------------------
 @app.route("/candidato/<string:idObject>", methods=['DELETE'])
