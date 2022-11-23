@@ -15,8 +15,8 @@ class ControladorCandidato():
         print("Creando el Candidato....")
         nuevoCandidato = Candidato(bodyR)
         print("Candidato a crear en base de datos: ", nuevoCandidato.__dict__)
-        self.repositorioCandidato.save(nuevoCandidato)
-        return True
+        response=self.repositorioCandidato.save(nuevoCandidato)
+        return response
 
     def buscarCandidato(self, idObject):
         print("Buscando el Candidato....", idObject)

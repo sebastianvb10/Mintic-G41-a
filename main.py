@@ -88,10 +88,10 @@ def crearCandidato():
     requestBody = request.get_json()
     print("Request body: ", requestBody)
     result = controlCandi.crearCandidato(requestBody)
-    if result:
-        return {"resultado": "Candidato Creado!"}
-    else:
+    if result is None:
         return {"resultado": "Error al crear el Candidato!"}
+    else:
+        return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
 #metodos de obtencion de datos
 #--------------------------------------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ def GETResultado():
     else:
         return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
-@app.route("/partido/<string:idObject>", methods=['GET'])
+@app.route("/resultado/<string:idObject>", methods=['GET'])
 def GETPartidos(idObject):
     result = controlResultado.buscarResultado(idObject)
     if not result:
