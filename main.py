@@ -228,7 +228,7 @@ def GETResultado():
         return jsonify(result)
 #--------------------------------------------------------------------------------------------------------------
 @app.route("/resultado/<string:idObject>", methods=['GET'])
-def GETPartidos(idObject):
+def GETResultados(idObject):
     result = controlResultado.buscarResultado(idObject)
     if not result:
         return {"resultado": "No se encuentran items en la base de datos!"}
