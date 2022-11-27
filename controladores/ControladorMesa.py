@@ -15,7 +15,7 @@ class ControladorMesa():
         return True
 
     def buscarMesa(self, idObject):
-        print("Buscando el Candidato....", idObject)
+        print("Buscando la mesa....", idObject)
         mesa = Mesa(self.repositorioMesa.findById(idObject))
         return mesa.__dict__
 
@@ -29,7 +29,7 @@ class ControladorMesa():
         return True
 
     def actualizarMesa(self, mesarecibida):
-        mesaActual = Mesa(self.repositorioMesa.findById(mesarecibida["idObject"]))
+        mesaActual = Mesa(self.repositorioMesa.findById(mesarecibida["_id"]))
         print("Actualizando el Mesa....", mesaActual.__dict__)
         mesaActual.numero = mesarecibida["numero"]
         mesaActual.cantidadInscritos = mesarecibida["cantidadInscritos"]

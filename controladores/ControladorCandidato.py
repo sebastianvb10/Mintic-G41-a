@@ -28,12 +28,14 @@ class ControladorCandidato():
         return self.repositorioCandidato.findAll()
 
     def actualizarCandidato(self, candi):
-        candiActual = Candidato(self.repositorioCandidato.findById(candi["idObject"]))
+        candiActual = Candidato(self.repositorioCandidato.findById(candi["_id"]))
         print("Actualizando el Candidato....", candiActual.__dict__)
+        print(candi)
         candiActual.nombre = candi["nombre"]
         candiActual.apellido = candi["apellido"]
         candiActual.cedula = candi["cedula"]
         candiActual.numeroResolucion = candi["numeroResolucion"]
+        candiActual.partido=candi["partido"]
         self.repositorioCandidato.save(candiActual)
         return True
 
@@ -42,7 +44,8 @@ class ControladorCandidato():
         self.repositorioCandidato.delete(idObject)
         return True
     def asignarPartido(self,idCandidato,idPartido):
+        print("Entrando a asignar partido")
         candi=Candidato(self.repositorioCandidato.findById(idCandidato))
         parti=Partido(self.repositorioPartido.findById((idPartido)))
-        candi.IdPartido=parti
+        candi.partido=parti
         return self.repositorioCandidato.save(candi)

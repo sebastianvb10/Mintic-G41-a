@@ -16,12 +16,14 @@ class ControladorResultado():
         print("Creando el Resultado....")
         nuevoResultado = Resultado(bodyR)
         candi=Candidato(self.repositorioCandidato.findById(idCandidato))
+        print(candi.__dict__)
         mes=Mesa(self.repositorioMesa.findById(idMesa))
+        print(mes.__dict__)
         nuevoResultado.candidato=candi
         nuevoResultado.mesa=mes
         print("Resultado a crear en base de datos: ", nuevoResultado.__dict__)
-        self.repositorioResultado.save(nuevoResultado)
-        return True
+        response=self.repositorioResultado.save(nuevoResultado)
+        return response
     def buscarResultado(self, idObject):
         print("Buscando el Resultado....", idObject)
         resultado = Resultado(self.repositorioResultado.findById(idObject))
@@ -34,11 +36,10 @@ class ControladorResultado():
         self.repositorioResultado.delete(idObject)
         return True
     def actualizarResultado(self, result):
-        resultActual = Resultado(self.repositorioResultado.findById(result["idObject"]))
+        resultActual = Resultado(self.repositorioResultado.findById(result["_id"]))
         print("Actualizando el Candidato....", resultActual.__dict__)
         resultActual.id = result["id"]
-        resultActual.numeroMesa = result["numeroMesa"]
-        resultActual.cedulaCandidato = result["cedulaCandidato"]
+        resultActual.mesa = result["mesa"]
+        resultActual.candidato = result["candidato"]
         resultActual.numeroVotos = result["numeroVotos"]
-
         return self.repositorioResultado.save(resultActual)

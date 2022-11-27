@@ -24,7 +24,7 @@ class ControladorPartido():
         self.repositorioPartido.delete(idObject)
         return True
     def actualizarPartido(self,partidorecibido):
-        partidoActual = Partido(self.repositorioPartido.findById(partidorecibido["idObject"]))
+        partidoActual = Partido(self.repositorioPartido.findById(partidorecibido["_id"]))
         print("Actualizando el Partido....", partidoActual.__dict__)
         partidoActual.id = partidorecibido["id"]
         partidoActual.nombre = partidorecibido["nombre"]

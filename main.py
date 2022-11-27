@@ -67,7 +67,7 @@ def PutMesa():
 #--------------------------------------------------------------------------------------------------------------
 #metodo borrar
 #--------------------------------------------------------------------------------------------------------------
-@app.route("/mesa", methods=['DELETE'])
+@app.route("/mesa/<string:idObject>", methods=['DELETE'])
 def DeleteMesa(idObject):
     controlMesa.eliminarMesa(idObject)
     variableRespuesta = {
@@ -192,7 +192,7 @@ def PutPartido():
 #--------------------------------------------------------------------------------------------------------------
 #metodo borrar
 #--------------------------------------------------------------------------------------------------------------
-@app.route("/partido", methods=['DELETE'])
+@app.route("/partido/<string:idObject>", methods=['DELETE'])
 def DeletePartido(idObject):
     controlPartido.eliminarPartido(idObject)
     variableRespuesta = {
@@ -250,7 +250,7 @@ def PutResultado():
 #metodo borrar
 #--------------------------------------------------------------------------------------------------------------
 
-@app.route("/resultado", methods=['DELETE'])
+@app.route("/resultado/<string:idObject>", methods=['DELETE'])
 def DeleteResultado(idObject):
     controlResultado.eliminarResultado(idObject)
     variableRespuesta = {
